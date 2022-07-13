@@ -87,6 +87,8 @@ while True:
             cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),2)
             # cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0))
             cv2.putText(frame,personName,(x1+6, y2+6),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
+        else:
+            cv2.putText(frame,"no face detected",(x1+6, y2+6),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
     cv2.imshow("frame",frame)
     
     if cv2.waitKey(10)== 13:
