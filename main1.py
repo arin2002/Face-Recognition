@@ -44,7 +44,7 @@ def encodings(images):
         # a variable for storing all encodings
         temp = face_recognition.face_encodings(img)[0]
         encode.append(temp)
-    
+
     return encode
 
 encodeList = encodings(image_list)
