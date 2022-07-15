@@ -79,15 +79,18 @@ while True:
         y1,x2,y2,x1 = faceLoc
         y1,x2,y2,x1 = y1*4,x2*4,y2*4,x1*4
         cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),2)
-        cv2.rectangle(frame,(x1,y2-35),(x2,y2),(0,255,0),cv2.FILLED)
         
         if matching[matching_index]:
             personName = name[matching_index].upper()
             # print(personName)
             # now draw rect over detected face
-            cv2.putText(frame,personName,(x1+6, y2-6),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
+            # y1,x2,y2,x1 = faceLoc
+            # y1,x2,y2,x1 = y1*4,x2*4,y2*4,x1*4
+            # cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0),2)
+            # cv2.rectangle(frame,(x1,y1),(x2,y2),(0,255,0))
+            cv2.putText(frame,personName,(x1+3, y2+3),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
         else:
-            cv2.putText(frame,"Unknown face",(x1+6, y2-6),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
+            cv2.putText(frame,"Unknown face",(x1-5, y2-5),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
     cv2.imshow("frame",frame)
     
     if cv2.waitKey(1) & 0xFF == ord('q'):
