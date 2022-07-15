@@ -85,7 +85,7 @@ while True:
             personName = name[matching_index].upper()
             # print(personName)
             # now draw rect over detected face
-            cv2.putText(frame,personName,(x1+6, y2-6),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
+            cv2.putText(frame,personName,(x1+6, y2-5),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
         else:
             cv2.putText(frame,"Unknown face",(x1+6, y2-6),cv2.FONT_HERSHEY_COMPLEX,1,(0,0,255),2)
     cv2.imshow("frame",frame)
