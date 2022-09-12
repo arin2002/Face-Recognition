@@ -48,7 +48,7 @@ def encodings(images):
     return encode
 
 encodeList = encodings(image_list)
-print("ALL encondigs are done")
+print("ALL encodings are done")
 
 # now camera paert for detecting and all
 # id 0 set for camera of labtop
