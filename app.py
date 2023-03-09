@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, session,Response
+from flask import Flask, render_template, request, redirect, url_for, session, Response
 import hashlib
 import cv2
 import os
 import numpy as np
 import face_recognition
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 app = Flask(__name__)
 
