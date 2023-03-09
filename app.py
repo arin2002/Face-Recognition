@@ -170,7 +170,7 @@ def logout():
 def home():
     # Check if the user is logged in
     if 'username' in session:
-        return render_template('home.html', username=session['username'])
+        return render_template('home.html', current_user=current_user)
     else:
         # Redirect to the login page if the user is not logged in
         return redirect(url_for('login'))
