@@ -96,7 +96,7 @@ def gen_frames():
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('./template/index.html')
 
 
 def gen_frames():
