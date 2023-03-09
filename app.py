@@ -4,6 +4,7 @@ import cv2
 import os
 import numpy as np
 import face_recognition
+from flask_login import current_user
 
 app = Flask(__name__)
 
