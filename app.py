@@ -91,8 +91,6 @@ def gen_frames():
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
-# Flask route to home page
-
 
 # Flask route to home page
 @app.route('/')
