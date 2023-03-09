@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session,Response
 import hashlib
 import cv2
 import os
@@ -103,6 +103,76 @@ def gen_frames():
 @app.route('/video_feed')
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'
+
+users = {}
+
+# Registration page
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        # Hash the password before storing it
+        hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        if username in users:
+            # Return error message if the user already exists
+            return render_template('register.html', error_message='User already exists')
+        else:
+            # Add the user to the dictionary of users
+            users[username] = hashed_password
+            # Redirect to the login page after successful registration
+            return redirect(url_for('login'))
+    else:
+        # Render the registration page
+        return render_template('register.html')
+
+# Login page
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        # Hash the password to compare it with the stored password
+        hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        if username not in users or hashed_password != users[username]:
+            # Return error message if the login credentials are invalid
+            return render_template('login.html', error_message='Invalid username or password')
+        else:
+            # Store the username in the session and redirect to the home page
+            session['username'] = username
+            return redirect(url_for('home'))
+    else:
+        # Render the login page
+        return render_template('login.html')
+
+# Logout
+
+
+@app.route('/logout')
+def logout():
+    # Clear the session and redirect to the login page
+    session.clear()
+    return redirect(url_for('login'))
+
+# Home page
+
+
+@app.route('/')
+def home():
+    # Check if the user is logged in
+    if 'username' in session:
+        return render_template('home.html', username=session['username'])
+    else:
+        # Redirect to the login page if the user is not logged in
+        return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
