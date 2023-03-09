@@ -88,11 +88,68 @@ def gen_frames():
             # encode frame as JPEG
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
+
+            # yield the frame in byte format
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
-# Flask route to home page
 @app.route('/')
 def home():
     return render_template('index.html')
+
+
+def gen_frames():
+    while True:
+        # read camera frame
+        success, frame = camera.read()
+        if not success:
+            break
+        else:
+            # resizing
+            face = cv2.resize(frame, (0, 0), None, 0.25, 0.25)
+            # again convert to rgb bcz cv2 we are reading images
+            face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
+            # now we need to find face locations and encodings
+            current_frame = face_recognition.face_locations(face)
+            encode_frame = face_recognition.face_encodings(face, current_frame)
+
+            # now using this we wil do matching
+            for encodeL, faceLoc in zip(encode_frame, current_frame):
+                matching = face_recognition.compare_faces(encodeList, encodeL)
+                faceDisMatching = face_recognition.face_distance(
+                    encodeList, encodeL)
+
+                # we will find minimun distance if distance face matched but if more not matched
+                # this give index value of min
+                matching_index = np.argmin(faceDisMatching)
+                y1, x2, y2, x1 = faceLoc
+                y1, x2, y2, x1 = y1*4, x2*4, y2*4, x1*4
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                cv2.rectangle(frame, (x1, y2-25), (x2, y2),
+                              (0, 255, 0), cv2.FILLED)
+
+                if matching[matching_index]:
+                    personName = name[matching_index].upper()
+                    cv2.putText(frame, personName, (x1+6, y2-5),
+                                cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2)
+                else:
+                    cv2.putText(frame, "Unknown face", (x1+6, y2-6),
+                                cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2)
+
+            # encode frame as JPEG
+            ret, buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+
+            # use generator function to stream video to webpage
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
