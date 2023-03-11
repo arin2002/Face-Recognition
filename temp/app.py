@@ -107,10 +107,8 @@ def video_feed():
 # for stopping
 stop_flag = False
 
-
 @app.route('/stop')
 def stop():
-    global stop_flag
     stop_flag = True
     return "stopped"
 
