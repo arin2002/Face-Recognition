@@ -15,7 +15,21 @@ image_list = []
 name = []
 myList = os.listdir(path)
 
+# now getting image name from photo name
+for img in myList:
+    # for loading images used
+    temp = cv2.imread(f'{path}/{img}')
+    # images stored in this
+    image_list.append(temp)
+    # names also storing
+    string = os.path.splitext(img)[0]
+    # remove digits from string
+    res = ''.join([i for i in string if not i.isdigit()])
+    name.append(res)
+
 # now generate face encodings
+
+
 def encodings(images):
     encode = []
     for img in images:
@@ -34,13 +48,13 @@ print("ALL encodings are done")
 # camera part for detecting faces
 camera = cv2.VideoCapture(0)
 
-
 def gen_frames():
     while True:
         # read camera frame
+        
         if stop_flag:
-            break
-
+            break  
+        
         success, frame = camera.read()
         if not success:
             break
@@ -92,6 +106,8 @@ def video_feed():
 
 # for stopping
 stop_flag = False
+
+
 @app.route('/stop')
 def stop():
     global stop_flag
@@ -127,11 +143,11 @@ def detect_face():
         return Response(jpeg.tobytes(), mimetype='image/jpeg')
     else:
         return render_template('detect_face.html')
-
+    
 
 @app.route('/')
 def welcome():
-    return render_template('home.html')
+    return render_template('live_stream.html')
 
 
 @app.route('/live_stream')
