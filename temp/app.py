@@ -100,14 +100,6 @@ def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-# for stopping
-stop_flag = False
-
-@app.route('/stop')
-def stop():
-    return render_template('live_stream.html')
-
-
 @app.route('/detect_face', methods=['GET', 'POST'])
 def detect_face():
     if request.method == 'POST':
