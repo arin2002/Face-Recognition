@@ -104,3 +104,14 @@ def gen_frames():
 @app.route('/video_feed')
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+# for stopping
+stop_flag = False
+
+
+@app.route('/stop')
+def stop():
+    global stop_flag
+    stop_flag = True
+    return 'Stopped!'
