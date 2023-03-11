@@ -81,7 +81,7 @@ def gen_frames():
 
                 if matching[matching_index]:
                     personName = name[matching_index].upper()
-                    cv2.putText(frame, personName, (x1+6, y2-5),
+                    cv2.putText(frame, request.form['name'], (x1+6, y2-5),
                                 cv2.FONT_HERSHEY_COMPLEX, 1, (0, 0, 255), 2)
                 else:
                     cv2.putText(frame, "Unknown face", (x1+6, y2-6),
