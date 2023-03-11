@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face Recognition</title>
+</head>
+<body>
+    <h1>Face Recognition</h1>
+    <img src="{{ url_for('video_feed') }}" width="640" height="480">
+    <br>
+    <button onclick="stop()">Stop</button>
+    <script>
+        function stop() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '{{ url_for("stop") }}');
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
