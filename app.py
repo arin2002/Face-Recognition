@@ -118,3 +118,34 @@ stop_flag = False
 def stop():
     global stop_flag
     stop_flag = True
+    return "stopped"
+
+
+@app.route('/detect_face', methods=['GET', 'POST'])
+def detect_face():
+    if request.method == 'POST':
+        # Get the uploaded file
+        file = request.files['file']
+
+        # Load the image data from the file
+        img_data = file.read()
+
+        # Convert the image data to a numpy array
+        nparr = np.fromstring(img_data, np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+        # Find faces in the image
+        face_locations = face_recognition.face_locations(img)
+
+        # Draw a rectangle around each face
+        for face_location in face_locations:
+            top, right, bottom, left = face_location
+            cv2.rectangle(img, (left, top), (right, bottom), (0, 255, 0), 2)
+
+        # Encode the modified image as a JPEG
+        ret, jpeg = cv2.imencode('.jpg', img)
+
+        # Return the modified image as a response
+        return Response(jpeg.tobytes(), mimetype='image/jpeg')
+    else:
+        return render_template('detect_face.html')
