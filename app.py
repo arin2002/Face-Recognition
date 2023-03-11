@@ -57,6 +57,10 @@ def home():
 def gen_frames():
     while True:
         # read camera frame
+        
+        if stop_flag:
+            break  
+        
         success, frame = camera.read()
         if not success:
             break
@@ -114,4 +118,3 @@ stop_flag = False
 def stop():
     global stop_flag
     stop_flag = True
-    return 'Stopped!'
