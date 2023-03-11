@@ -153,4 +153,4 @@ def detect_face():
 
 @app.route('/')
 def welcome():
-    return render_template('welcome.html')
+    return render_template('home.html')
