@@ -52,9 +52,6 @@ camera = cv2.VideoCapture(0)
 def gen_frames():
     while True:
         # read camera frame
-        if stop_flag:
-            break
-
         success, frame = camera.read()
         if not success:
             break
@@ -103,16 +100,6 @@ def gen_frames():
 def video_feed():
     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-
-# for stopping
-stop_flag = False
-@app.route('/stop')
-def stop():
-    global stop_flag
-    stop_flag = True
-    return "stopped"
-
-
 @app.route('/detect_face', methods=['GET', 'POST'])
 def detect_face():
     if request.method == 'POST':
@@ -145,6 +132,7 @@ def detect_face():
 
 @app.route('/')
 def welcome():
+    cv2.destroyAllWindows()
     return render_template('home.html')
 
 
