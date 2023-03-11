@@ -132,6 +132,7 @@ def detect_face():
 
 @app.route('/')
 def welcome():
+    cv2.destroyAllWindows()
     return render_template('live_stream.html')
 
 
