@@ -149,3 +149,6 @@ def detect_face():
         return Response(jpeg.tobytes(), mimetype='image/jpeg')
     else:
         return render_template('detect_face.html')
+    
+
+
