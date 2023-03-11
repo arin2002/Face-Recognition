@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Image</title>
+</head>
+<body>
+    <h1>Upload an image to detect faces</h1>
+    <form method="POST" enctype="multipart/form-data" action="{{ url_for('detect_face') }}">
+        <input type="file" name="file">
+        <br><br>
+        <button type="submit">Detect Faces</button>
+    </form>
+</body>
+</html>
+
+
