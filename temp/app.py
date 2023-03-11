@@ -53,7 +53,7 @@ def gen_frames():
         # read camera frame
         
         if stop_flag:
-            break  
+            welcome()
         
         success, frame = camera.read()
         if not success:
