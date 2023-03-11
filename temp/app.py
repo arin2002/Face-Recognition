@@ -147,7 +147,7 @@ def detect_face():
 
 @app.route('/')
 def welcome():
-    return render_template('home.html')
+    return render_template('live_stream.html')
 
 
 @app.route('/live_stream')
