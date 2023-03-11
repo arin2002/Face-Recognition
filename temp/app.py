@@ -50,11 +50,7 @@ camera = cv2.VideoCapture(0)
 
 def gen_frames():
     while True:
-        # read camera frame
-        
-        if stop_flag:
-            welcome()
-        
+        # read camera frame    
         success, frame = camera.read()
         if not success:
             break
@@ -109,8 +105,7 @@ stop_flag = False
 
 @app.route('/stop')
 def stop():
-    stop_flag = True
-    return "stopped"
+    return render_template('live_stream.html')
 
 
 @app.route('/detect_face', methods=['GET', 'POST'])
