@@ -105,10 +105,6 @@ def detect_face():
     if request.method == 'POST':
         # Get the uploaded file
         file = request.files['file']
-        image = face_recognition.load_image_file(file)
-        
-        face_landmarks_list = face_recognition.face_landmarks(image)
-
         
         # Load the image data from the file
         img_data = file.read()
