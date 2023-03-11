@@ -52,7 +52,6 @@ camera = cv2.VideoCapture(0)
 def gen_frames():
     while True:
         # read camera frame
-
         if stop_flag:
             break
 
