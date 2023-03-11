@@ -115,6 +115,11 @@ def detect_face():
 
         # Find faces in the image
         face_locations = face_recognition.face_locations(img)
+        file_encoding = face_recognition.face_encodings(file)[0]
+        
+        results = face_recognition.compare_faces(
+            [biden_encoding], unknown_encoding)
+
 
         # Draw a rectangle around each face
         for face_location in face_locations:
