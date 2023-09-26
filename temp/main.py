@@ -7,7 +7,7 @@ import os
 import numpy as np
 import face_recognition
 
-# crrate a path for images where we stored
+# create a path for images where we stored
 path = 'images'
 # create a list for images
 image_list = []
