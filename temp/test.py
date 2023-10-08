@@ -19,6 +19,9 @@ class OCRApp:
             root, text="Browse", command=self.browse_image)
         self.browse_button.pack()
 
+        self.result_label = tk.Label(root, text="")
+        self.result_label.pack()
+
         self.process_button = tk.Button(
             root, text="Process Image", command=self.process_image)
         self.process_button.pack()
@@ -32,17 +35,11 @@ class OCRApp:
         reader = Reader(langs)
         results = reader.readtext(self.image)
 
-        for (bbox, text, prob) in results:
-            (top_left, top_right, bottom_right, bottom_left) = bbox
-            tl = (int(top_left[0]), int(top_left[1]))
-            br = (int(bottom_right[0]), int(bottom_right[1]))
-            cv2.rectangle(self.image, tl, br, (0, 0, 255), 2)
-            cv2.putText(self.image, f"{text} ({prob:.2f})", (tl[0], tl[1] - 10),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
+        detected_text = ""
+        for (_, text, _) in results:
+            detected_text += text + "\n"
 
-        cv2.imshow("Processed Image", self.image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        self.result_label.config(text=detected_text)
 
 
 if __name__ == "__main__":
