@@ -11,7 +11,6 @@ parser.add_argument("-g", "--gpu", type=int, default=-1,
                     help="Whether or not GPU should be used")
 args = parser.parse_args()
 
-# Extract arguments
 langs = args.langs.split(",")
 print("[INFO] Using the following languages: {}".format(langs))
 
@@ -19,23 +18,19 @@ print("[INFO] Using the following languages: {}".format(langs))
 image = cv2.imread(args.image)
 print("[INFO] Performing OCR on input image...")
 
-# Perform OCR using EasyOCR
 reader = Reader(langs, gpu=args.gpu > 0)
 results = reader.readtext(image)
 
-# Process results and display them on the image
 for (bbox, text, prob) in results:
     print("[INFO] {:.4f}: {}".format(prob, text))
     (top_left, top_right, bottom_right, bottom_left) = bbox
     tl = (int(top_left[0]), int(top_left[1]))
     br = (int(bottom_right[0]), int(bottom_right[1]))
 
-    # Draw bounding box and text on the image
     cv2.rectangle(image, tl, br, (0, 0, 255), 2)
     cv2.putText(image, text, (tl[0], tl[1] - 10),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
 
-# Display the annotated image
 cv2.imshow("Image", image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
