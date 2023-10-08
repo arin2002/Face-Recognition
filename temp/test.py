@@ -32,5 +32,4 @@ for (bbox, text, prob) in results:
                 cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
 
 cv2.imwrite("output_image.jpg", image)
-cv2.waitKey(0)
 cv2.destroyAllWindows()
