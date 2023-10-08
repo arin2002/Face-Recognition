@@ -3,7 +3,6 @@ from tkinter import filedialog
 import cv2
 from easyocr import Reader
 
-
 class OCRApp:
     def __init__(self, root):
         self.root = root
@@ -15,15 +14,13 @@ class OCRApp:
         self.langs_entry = tk.Entry(root)
         self.langs_entry.pack()
 
-        self.browse_button = tk.Button(
-            root, text="Browse", command=self.browse_image)
+        self.browse_button = tk.Button(root, text="Browse", command=self.browse_image)
         self.browse_button.pack()
 
         self.result_label = tk.Label(root, text="")
         self.result_label.pack()
 
-        self.process_button = tk.Button(
-            root, text="Process Image", command=self.process_image)
+        self.process_button = tk.Button(root, text="Process Image", command=self.process_image)
         self.process_button.pack()
 
     def browse_image(self):
@@ -40,7 +37,6 @@ class OCRApp:
             detected_text += text + "\n"
 
         self.result_label.config(text=detected_text)
-
 
 if __name__ == "__main__":
     root = tk.Tk()
