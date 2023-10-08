@@ -37,7 +37,7 @@ class OCRApp:
             tl = (int(top_left[0]), int(top_left[1]))
             br = (int(bottom_right[0]), int(bottom_right[1]))
             cv2.rectangle(self.image, tl, br, (0, 0, 255), 2)
-            cv2.putText(self.image, text, (tl[0], tl[1] - 10),
+            cv2.putText(self.image, f"{text} ({prob:.2f})", (tl[0], tl[1] - 10),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
 
         cv2.imshow("Processed Image", self.image)
