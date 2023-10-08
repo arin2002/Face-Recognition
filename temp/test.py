@@ -31,4 +31,7 @@ for (bbox, text, prob) in results:
     cv2.putText(image, text, (tl[0], tl[1] - 10),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 2)
 
-cv2.imwrite("output_image.jpg", image)
+# Display the processed image with bounding boxes and detected text
+cv2.imshow("Processed Image", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
