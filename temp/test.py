@@ -1,6 +1,5 @@
 import argparse
 import cv2
-from PIL import Image
 from easyocr import Reader
 
 # Parse command-line arguments
