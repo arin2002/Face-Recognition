@@ -17,6 +17,7 @@ print(myList)
 # now getting image name from photo name
 for img in myList:
     # for loading images used 
+    # cv2.imread() is a function in the OpenCV library used for reading an image from a file. It takes the path to the image file as input and returns a NumPy array representing the image pixel values.
     temp = cv2.imread(f'{path}/{img}')
     # images stored in this
     image_list.append(temp)
